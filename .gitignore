@@ -1,5 +1,6 @@
 # Database Credentials Configuration
 config.php
+config.example.php
 
 # Local user uploads (product images, etc)
 Assets/uploads/
