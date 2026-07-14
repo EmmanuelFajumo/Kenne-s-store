@@ -15,7 +15,7 @@ $products = $productObj->getAll($categoryId, $search, $sort);
 <?php if (empty($categoryId) && empty($search)): ?>
 <div class="hero-minimal">
     <div class="container py-5">
-        <h1 class="display-4 font-weight-bold">Minimalist Design.<br><span style="color: var(--accent-color);">Premium Quality.</span></h1>
+        <h1 class="display-4 font-weight-bold">Kenne Store.<br><span style="color: var(--accent-color);">Premium Quality.</span></h1>
         <p class="lead">Discover our curated collection of technical apparel, minimalist leather goods, and refined essentials.</p>
         <a href="#shop-grid" class="btn btn-minimal btn-minimal-orange mt-3">Explore Collection</a>
     </div>

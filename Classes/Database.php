@@ -1,11 +1,20 @@
 <?php
 // Classes/Database.php
 
+if (file_exists(__DIR__ . '/../config.php')) {
+    require_once __DIR__ . '/../config.php';
+}
+
+if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_NAME')) define('DB_NAME', 'kenestore');
+if (!defined('DB_USER')) define('DB_USER', 'root');
+if (!defined('DB_PASS')) define('DB_PASS', '');
+
 class Database {
-    private $host = 'localhost';
-    private $db_name = 'kenestore';
-    private $username = 'root';
-    private $password = '';
+    private $host = DB_HOST;
+    private $db_name = DB_NAME;
+    private $username = DB_USER;
+    private $password = DB_PASS;
     private $conn = null;
 
     public function connect() {

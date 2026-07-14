@@ -6,6 +6,21 @@ $host = 'localhost';
 $user = 'root';
 $pass = '';
 
+if (file_exists('config.php')) {
+    require_once 'config.php';
+    $host = DB_HOST;
+    $user = DB_USER;
+    $pass = DB_PASS;
+} else {
+    $configContent = "<?php\n" .
+                     "// config.php\n" .
+                     "define('DB_HOST', '$host');\n" .
+                     "define('DB_NAME', 'kenestore');\n" .
+                     "define('DB_USER', '$user');\n" .
+                     "define('DB_PASS', '$pass');\n";
+    file_put_contents('config.php', $configContent);
+}
+
 try {
     // 1. Connect without db to create it
     $pdo = new PDO("mysql:host=$host", $user, $pass);

@@ -1,0 +1,15 @@
+# Database Credentials Configuration
+config.php
+
+# Local user uploads (product images, etc)
+Assets/uploads/
+
+# IDE / Project settings directories
+.vscode/
+.idea/
+.project
+.settings/
+
+# OS specific files
+.DS_Store
+Thumbs.db
