@@ -18,7 +18,7 @@ $redirect = $_GET['redirect'] ?? '';
                 <p class="text-muted">Sign in to your KeneStore account</p>
             </div>
             
-            <form action="Pocess_pages/login_process.php" method="POST">
+            <form action="process_pages/login_process.php" method="POST">
                 <?php if (!empty($redirect)): ?>
                     <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
                 <?php endif; ?>
