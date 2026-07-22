@@ -43,7 +43,7 @@ $cartTotal = $cartObj->getTotal($userId);
                                         </div>
                                     </div>
                                 </td>
-                                <td>$<?= number_format($item['price'], 2) ?></td>
+                                <td>₦<?= number_format($item['price'], 2) ?></td>
                                 <td>
                                     <form action="Pocess_pages/cart_process.php" method="POST" class="d-flex align-items-center">
                                         <input type="hidden" name="action" value="update">
@@ -52,7 +52,7 @@ $cartTotal = $cartObj->getTotal($userId);
                                         <button type="submit" class="btn btn-minimal btn-minimal-dark py-1 px-2" style="font-size: 0.75rem; height: 35px;">Update</button>
                                     </form>
                                 </td>
-                                <td>$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                                <td>₦<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
                                 <td>
                                     <a href="Pocess_pages/cart_process.php?action=remove&product_id=<?= $item['product_id'] ?>" class="text-danger" title="Remove Item" style="font-size: 1.25rem;">&times;</a>
                                 </td>
@@ -75,7 +75,7 @@ $cartTotal = $cartObj->getTotal($userId);
                 
                 <div class="d-flex justify-content-between mb-3">
                     <span class="text-muted">Subtotal</span>
-                    <span class="fw-bold">$<?= number_format($cartTotal, 2) ?></span>
+                    <span class="fw-bold">₦<?= number_format($cartTotal, 2) ?></span>
                 </div>
                 <div class="d-flex justify-content-between mb-3">
                     <span class="text-muted">Shipping</span>
@@ -84,7 +84,7 @@ $cartTotal = $cartObj->getTotal($userId);
                 <hr>
                 <div class="d-flex justify-content-between mb-4">
                     <span class="fw-bold">Total</span>
-                    <span class="fw-bold text-dark h4 mb-0">$<?= number_format($cartTotal, 2) ?></span>
+                    <span class="fw-bold text-dark h4 mb-0">₦<?= number_format($cartTotal, 2) ?></span>
                 </div>
                 
                 <?php if ($userObj->isLoggedIn()): ?>

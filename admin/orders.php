@@ -52,7 +52,7 @@ if ($viewId) {
                                     <td class="fw-bold">#KS-<?= str_pad($ord['id'], 5, '0', STR_PAD_LEFT) ?></td>
                                     <td><?= htmlspecialchars($ord['customer_name']) ?></td>
                                     <td style="font-size: 0.85rem;"><?= date('d M Y, H:i', strtotime($ord['created_at'])) ?></td>
-                                    <td class="fw-bold">$<?= number_format($ord['total_amount'], 2) ?></td>
+                                    <td class="fw-bold">₦<?= number_format($ord['total_amount'], 2) ?></td>
                                     <td>
                                         <span class="badge-minimal <?= $badgeClass ?>"><?= htmlspecialchars($ord['status']) ?></span>
                                     </td>
@@ -128,12 +128,12 @@ if ($viewId) {
                     <?php foreach ($viewOrder['items'] as $item): ?>
                         <li class="list-group-item d-flex justify-content-between align-items-center px-3" style="font-size: 0.9rem;">
                             <span class="text-truncate me-2" style="max-width: 220px;"><?= htmlspecialchars($item['product_name']) ?> &times; <?= $item['quantity'] ?></span>
-                            <span class="fw-bold">$<?= number_format($item['price'] * $item['quantity'], 2) ?></span>
+                            <span class="fw-bold">₦<?= number_format($item['price'] * $item['quantity'], 2) ?></span>
                         </li>
                     <?php endforeach; ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center px-3 bg-light" style="font-size: 0.9rem; font-weight: bold; border-top: 1px solid var(--fg-color);">
                         <span>Total Paid</span>
-                        <span style="color: var(--accent-color);">$<?= number_format($viewOrder['total_amount'], 2) ?></span>
+                        <span style="color: var(--accent-color);">₦<?= number_format($viewOrder['total_amount'], 2) ?></span>
                     </li>
                 </ul>
             </div>

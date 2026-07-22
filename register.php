@@ -18,7 +18,7 @@ $redirect = $_GET['redirect'] ?? '';
                 <p class="text-muted">Create your KeneStore customer account</p>
             </div>
             
-            <form action="Pocess_pages/register_process.php" method="POST">
+            <form action="Process_pages/register_process.php" method="POST">
                 <!-- Name -->
                 <div class="mb-3">
                     <label for="name" class="form-label-minimal">Full Name</label>

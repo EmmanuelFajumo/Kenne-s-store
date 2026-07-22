@@ -167,4 +167,38 @@ class Order {
             ];
         }
     }
+
+    
+    // Called right after Paystack initialization succeeds, so we can
+    // look the order up by reference when Paystack redirects back.
+    public function setPaymentReference($orderId, $reference) {
+        try {
+            $stmt = $this->db->prepare("UPDATE orders SET payment_reference = ? WHERE id = ?");
+            return $stmt->execute([$reference, $orderId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    // Puts stock back if a card payment never completes.
+    // Mirrors the deduction logic in create().
+    public function restoreStock($orderId) {
+        try {
+            $stmt = $this->db->prepare("SELECT product_id, quantity FROM order_items WHERE order_id = ?");
+            $stmt->execute([$orderId]);
+            $items = $stmt->fetchAll();
+
+            $restoreStmt = $this->db->prepare("UPDATE products SET stock = stock + ? WHERE id = ?");
+            foreach ($items as $item) {
+                $restoreStmt->execute([$item['quantity'], $item['product_id']]);
+            }
+            return true;
+        } catch (PDOException $e) {
+            error_log("Stock restore failed for order {$orderId}: " . $e->getMessage());
+            return false;
+        }
+    }
+
+
+
 }

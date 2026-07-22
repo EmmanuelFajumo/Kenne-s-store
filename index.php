@@ -81,9 +81,9 @@ $products = $productObj->getAll($categoryId, $search, $sort);
                                 </a>
                                 <p class="text-muted text-truncate" style="font-size: 0.85rem;"><?= htmlspecialchars($prod['description'] ?? '') ?></p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <span class="product-price fw-bold">$<?= number_format($prod['price'], 2) ?></span>
+                                    <span class="product-price fw-bold">₦<?= number_format($prod['price'], 2) ?></span>
                                     <?php if ($prod['stock'] > 0): ?>
-                                        <form action="Pocess_pages/cart_process.php" method="POST">
+                                        <form action="Process_pages/cart_process.php" method="POST">
                                             <input type="hidden" name="action" value="add">
                                             <input type="hidden" name="product_id" value="<?= $prod['id'] ?>">
                                             <input type="hidden" name="quantity" value="1">

@@ -1,11 +1,14 @@
 <?php
+
 // order_success.php
 require_once 'header.php';
+require_once 'Classes/Order.php';   // <-- add this
 
 if (!$userObj->isLoggedIn()) {
     header('Location: login.php');
     exit();
 }
+
 
 $orderId = $_GET['id'] ?? null;
 if (!$orderId) {
@@ -109,15 +112,15 @@ if ($order['status'] === 'cancelled') $badgeClass = 'badge-cancelled';
                                     </div>
                                 </td>
                                 <td class="text-center"><?= $item['quantity'] ?></td>
-                                <td class="text-end">$<?= number_format($item['price'], 2) ?></td>
-                                <td class="text-end">$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                                <td class="text-end">₦<?= number_format($item['price'], 2) ?></td>
+                                <td class="text-end">₦<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
                             </tr>
                         <?php endforeach; ?>
                         <!-- Subtotal & Grand Total Rows -->
                         <tr>
                             <td colspan="2" class="border-0"></td>
                             <td class="text-end text-muted fw-semibold py-2">Subtotal</td>
-                            <td class="text-end fw-semibold py-2">$<?= number_format($order['total_amount'], 2) ?></td>
+                            <td class="text-end fw-semibold py-2">₦<?= number_format($order['total_amount'], 2) ?></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="border-0"></td>
@@ -127,7 +130,7 @@ if ($order['status'] === 'cancelled') $badgeClass = 'badge-cancelled';
                         <tr>
                             <td colspan="2" class="border-0"></td>
                             <td class="text-end fw-bold text-uppercase py-2" style="font-size: 0.9rem; letter-spacing: 0.05em; border-top: 2px solid var(--fg-color);">Total Charged</td>
-                            <td class="text-end fw-bold text-dark py-2" style="font-size: 1.25rem; border-top: 2px solid var(--fg-color);">$<?= number_format($order['total_amount'], 2) ?></td>
+                            <td class="text-end fw-bold text-dark py-2" style="font-size: 1.25rem; border-top: 2px solid var(--fg-color);">₦<?= number_format($order['total_amount'], 2) ?></td>
                         </tr>
                     </tbody>
                 </table>

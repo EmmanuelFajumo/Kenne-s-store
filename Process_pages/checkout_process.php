@@ -5,6 +5,8 @@ require_once '../Classes/Database.php';
 require_once '../Classes/User.php';
 require_once '../Classes/Cart.php';
 require_once '../Classes/Order.php';
+require_once '../Classes/PaystackService.php'; // NEW
+require_once '../config.php';                  // NEW — for PAYSTACK_SK / PAYSTACK_CALLBACK_URL
 
 $db = (new Database())->connect();
 $userObj = new User($db);
@@ -46,24 +48,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'contact' => $contact
     ];
 
-    $_SESSION['shipping_details'] = $shippingDetails;
-    $_SESSION['payment_method'] = $paymentMethod;
-    
     $totalAmount = $cartObj->getTotal($userId);
-    $_SESSION['checkout_total'] = $totalAmount;
+    $orderObj = new Order($db);
 
     if ($paymentMethod === 'card') {
-        header('Location: ../payment.php');
-        exit();
+        // 1. Create the order up front (status 'pending', stock deducted as a reservation)
+        $orderId = $orderObj->create($userId, $shippingDetails, $totalAmount, $cartItems, 'card');
+
+        if (!$orderId) {
+            $_SESSION['error'] = "Failed to place order. An item in your cart may be out of stock.";
+            header('Location: ../checkout.php');
+            exit();
+        }
+
+        // 2. Hand off to Paystack instead of your own payment.php
+        $paystack = new PaystackService(PAYSTACK_SK);
+        $reference = 'order_' . $orderId . '_' . time(); // unique per attempt
+
+        $orderObj->setPaymentReference($orderId, $reference);
+
+       try {
+            $response = $paystack->initializeTransaction(
+                $_SESSION['user_email'], // was: $userObj->getEmailById($userId)
+                (int) round($totalAmount * 100),
+                $reference,
+                PAYSTACK_CALLBACK_URL,
+                ['order_id' => $orderId]
+            );
+
+            if ($response['status'] === true) {
+                // Cart stays intact until payment is verified — cleared in paystack_callback.php
+                header('Location: ' . $response['data']['authorization_url']);
+                exit();
+            }
+
+            // Paystack rejected the initialize call — release the stock we reserved
+            $orderObj->restoreStock($orderId);
+            $orderObj->updateStatus($orderId, 'failed');
+            $_SESSION['error'] = "Could not start payment: " . ($response['message'] ?? 'Unknown error');
+            header('Location: ../checkout.php');
+            exit();
+
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            $orderObj->restoreStock($orderId);
+            $orderObj->updateStatus($orderId, 'failed');
+            $_SESSION['error'] = "Payment could not be initiated. Please try again.";
+            header('Location: ../checkout.php');
+            exit();
+        }
+
     } else {
-        // Cash on Delivery
-        $orderObj = new Order($db);
+        // Cash on Delivery — unchanged from your original logic
         $orderId = $orderObj->create($userId, $shippingDetails, $totalAmount, $cartItems, 'Cash on Delivery');
         if ($orderId) {
             $cartObj->clear($userId);
-            unset($_SESSION['shipping_details']);
-            unset($_SESSION['payment_method']);
-            unset($_SESSION['checkout_total']);
             header('Location: ../order_success.php?id=' . $orderId);
             exit();
         } else {

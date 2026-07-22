@@ -60,11 +60,11 @@ $total = $_SESSION['checkout_total'];
                 <p class="text-muted">Pay securely using our credit card simulator</p>
                 <div class="alert alert-dark rounded-0 border-0 py-3 mb-0" style="background-color: #111111; color: #FFFFFF;">
                     <span class="text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.05em; color: var(--grey-muted);">Amount to Charge:</span>
-                    <h3 class="mb-0 fw-bold mt-1" style="color: var(--accent-color);">$<?= number_format($total, 2) ?></h3>
+                    <h3 class="mb-0 fw-bold mt-1" style="color: var(--accent-color);">₦<?= number_format($total, 2) ?></h3>
                 </div>
             </div>
             
-            <form id="payment-form" action="Pocess_pages/payment_process.php" method="POST">
+            <form id="payment-form" action="Process_pages/payment_process.php" method="POST">
                 <!-- Cardholder Name -->
                 <div class="mb-3">
                     <label for="card_name" class="form-label-minimal">Cardholder Name</label>

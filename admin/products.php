@@ -51,7 +51,7 @@ if ($editId) {
                                         <?= htmlspecialchars($prod['name']) ?>
                                     </td>
                                     <td><?= htmlspecialchars($prod['category_name'] ?? 'None') ?></td>
-                                    <td class="fw-bold">$<?= number_format($prod['price'], 2) ?></td>
+                                    <td class="fw-bold">₦<?= number_format($prod['price'], 2) ?></td>
                                     <td>
                                         <?php if ($prod['stock'] <= 5): ?>
                                             <span class="text-danger fw-bold"><?= $prod['stock'] ?> (Low)</span>
@@ -105,7 +105,7 @@ if ($editId) {
 
                 <!-- Price -->
                 <div class="mb-3">
-                    <label for="price" class="form-label-minimal">Price ($)</label>
+                    <label for="price" class="form-label-minimal">Price (₦)</label>
                     <input type="number" name="price" id="price" step="0.01" min="0.01" class="form-control form-control-minimal" value="<?= $editProduct ? htmlspecialchars($editProduct['price']) : '' ?>" required>
                 </div>
 

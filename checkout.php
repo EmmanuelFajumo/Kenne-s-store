@@ -29,7 +29,7 @@ if (empty($cartItems)) {
         <div class="card border rounded-0 p-4 bg-white shadow-sm">
             <h4 class="text-uppercase mb-4" style="font-size: 1.1rem; letter-spacing: 0.05em; border-bottom: 2px solid var(--fg-color); padding-bottom: 10px;">Shipping Address</h4>
             
-            <form action="Pocess_pages/checkout_process.php" method="POST">
+            <form action="Process_pages/checkout_process.php" method="POST">
                 <!-- Full Name -->
                 <div class="mb-3">
                     <label for="name" class="form-label-minimal">Full Name</label>
@@ -99,7 +99,7 @@ if (empty($cartItems)) {
                                 <small class="text-muted">Qty: <?= $item['quantity'] ?></small>
                             </div>
                         </div>
-                        <span class="fw-semibold text-dark">$<?= number_format($item['price'] * $item['quantity'], 2) ?></span>
+                        <span class="fw-semibold text-dark">₦<?= number_format($item['price'] * $item['quantity'], 2) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -107,7 +107,7 @@ if (empty($cartItems)) {
             <hr>
             <div class="d-flex justify-content-between mb-2">
                 <span class="text-muted">Subtotal</span>
-                <span>$<?= number_format($cartTotal, 2) ?></span>
+                <span>₦<?= number_format($cartTotal, 2) ?></span>
             </div>
             <div class="d-flex justify-content-between mb-2">
                 <span class="text-muted">Shipping</span>
@@ -116,7 +116,7 @@ if (empty($cartItems)) {
             <hr>
             <div class="d-flex justify-content-between mb-0">
                 <span class="fw-bold">Total to Pay</span>
-                <span class="fw-bold text-dark h4 mb-0">$<?= number_format($cartTotal, 2) ?></span>
+                <span class="fw-bold text-dark h4 mb-0">₦<?= number_format($cartTotal, 2) ?></span>
             </div>
         </div>
     </div>

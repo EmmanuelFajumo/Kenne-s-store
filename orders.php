@@ -7,7 +7,7 @@ if (!$userObj->isLoggedIn()) {
     header('Location: login.php');
     exit();
 }
-
+require_once "Classes/Order.php";
 $userId = $_SESSION['user_id'];
 $orderObj = new Order($db);
 $orders = $orderObj->getByUser($userId);
@@ -49,7 +49,7 @@ $orders = $orderObj->getByUser($userId);
                             <tr>
                                 <td class="fw-bold">#KS-<?= str_pad($order['id'], 5, '0', STR_PAD_LEFT) ?></td>
                                 <td><?= date('d M Y, H:i', strtotime($order['created_at'])) ?></td>
-                                <td class="fw-semibold">$<?= number_format($order['total_amount'], 2) ?></td>
+                                <td class="fw-semibold">₦<?= number_format($order['total_amount'], 2) ?></td>
                                 <td><?= htmlspecialchars($order['payment_method']) ?></td>
                                 <td>
                                     <span class="badge-minimal <?= $badgeClass ?>"><?= htmlspecialchars($order['status']) ?></span>

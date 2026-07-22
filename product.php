@@ -39,7 +39,7 @@ if (!$product) {
             
             <h1 class="display-5 fw-bold mb-3"><?= htmlspecialchars($product['name']) ?></h1>
             <div class="mb-4">
-                <span class="price-tag">$<?= number_format($product['price'], 2) ?></span>
+                <span class="price-tag">₦<?= number_format($product['price'], 2) ?></span>
             </div>
             
             <div class="mb-4">
